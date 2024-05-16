@@ -1,12 +1,19 @@
 use crate::components::potato::Potato;
 use crate::components::potato_man::PotatoMan;
-use bevy::prelude::{AssetServer, AudioBundle, Commands, default, Entity, Query, Res, Transform, Vec2, With, Without};
+use crate::components::score_text::ScoreText;
+use crate::resources::score::Score;
+use bevy::prelude::{
+    default, AssetServer, AudioBundle, Commands, Entity, Query, Res, ResMut, Text, Transform, Vec2,
+    With, Without,
+};
 
 pub fn check_if_potato_caught_by_potato_man(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     q_potato_man: Query<&mut Transform, (With<PotatoMan>, Without<Potato>)>,
     q_potatoes: Query<(Entity, &Transform), (With<Potato>, Without<PotatoMan>)>,
+    mut score: ResMut<Score>,
+    mut q_score_text: Query<&mut Text, With<ScoreText>>,
 ) {
     let potato_man = q_potato_man.single();
     let potato_man_size = Vec2::new(130.0, 150.0);
@@ -40,6 +47,13 @@ pub fn check_if_potato_caught_by_potato_man(
                 source: asset_server.load(sound),
                 ..default()
             });
+
+            // Update the score
+            score.0 += 1;
+
+            // Update the score text
+            let mut score_text = q_score_text.single_mut();
+            score_text.sections[0].value = format!("Score: {}", score.0);
         });
 }
 

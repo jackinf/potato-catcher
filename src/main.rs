@@ -3,6 +3,7 @@ pub mod resources;
 pub mod systems;
 
 use crate::resources::potato_spawn_timer::PotatoSpawnTimer;
+use crate::resources::score::Score;
 use crate::systems::check_if_potato_caught_by_potato_man::check_if_potato_caught_by_potato_man;
 use crate::systems::potato_falling::potato_falling;
 use crate::systems::potato_man_perform_movement::potato_man_perform_movement;
@@ -20,6 +21,7 @@ fn main() {
             1.0,
             TimerMode::Repeating,
         )))
+        .insert_resource(Score(0))
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, setup)
         .add_systems(Update, spawn_potato)
