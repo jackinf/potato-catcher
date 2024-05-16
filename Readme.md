@@ -37,14 +37,6 @@ Run the project:
 cargo run
 ```
 
-## Project Structure
-
-The project is structured into several systems, each handling a specific aspect of the game:
-
-- `potato_man_record_movement.rs`: This system records the Potato Man's movements based on keyboard inputs.
-- `potato_falling.rs`: This system handles the falling potatoes in the game.
-- `potato_man_perform_movement.rs`: This system performs the Potato Man's movements based on the recorded inputs.
-
 ## Built With
 
 - [Rust](https://www.rust-lang.org/) - The programming language used.
@@ -58,8 +50,3 @@ The project is structured into several systems, each handling a specific aspect 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- Thanks to the Bevy community for the great game engine.
-- Thanks to the Rust community for the great programming language.
