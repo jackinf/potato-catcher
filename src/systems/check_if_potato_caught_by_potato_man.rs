@@ -30,7 +30,11 @@ pub fn check_if_potato_caught_by_potato_man(
         .for_each(|entity| {
             commands.entity(entity).despawn();
 
-            let sound = if rand::random() { "sounds/potato.ogg" } else { "sounds/harvest.ogg" };
+            let sound = match rand::random::<f32>() {
+                x if x < 0.35 => "sounds/potato.ogg",
+                x if x < 0.50 => "sounds/harvest.ogg",
+                _ => "sounds/hah.ogg",
+            };
 
             commands.spawn(AudioBundle {
                 source: asset_server.load(sound),
