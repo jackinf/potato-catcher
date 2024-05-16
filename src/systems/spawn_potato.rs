@@ -34,7 +34,7 @@ pub fn spawn_potato(
         ));
 
         // Reset the timer with a new random duration
-        let duration = rng.gen_range(1.0..5.0);
+        let duration = rng.gen_range(0.3..0.8);
         timer
             .0
             .set_duration(std::time::Duration::from_secs_f32(duration));
