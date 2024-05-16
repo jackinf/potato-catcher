@@ -1,4 +1,5 @@
 use crate::components::potato_man::PotatoMan;
+use crate::components::potato_man_direction::PotatoManDirection;
 use bevy::asset::AssetServer;
 use bevy::math::Vec3;
 use bevy::prelude::{default, Camera2dBundle, Commands, Res, SpriteBundle, Transform};
@@ -14,5 +15,6 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ..default()
         },
         PotatoMan,
+        PotatoManDirection { x: 0. },
     ));
 }
