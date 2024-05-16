@@ -1,9 +1,10 @@
 use crate::components::potato::Potato;
 use crate::components::potato_man::PotatoMan;
-use bevy::prelude::{Commands, Entity, Query, Transform, Vec2, With, Without};
+use bevy::prelude::{AssetServer, AudioBundle, Commands, default, Entity, Query, Res, Transform, Vec2, With, Without};
 
 pub fn check_if_potato_caught_by_potato_man(
     mut commands: Commands,
+    asset_server: Res<AssetServer>,
     q_potato_man: Query<&mut Transform, (With<PotatoMan>, Without<Potato>)>,
     q_potatoes: Query<(Entity, &Transform), (With<Potato>, Without<PotatoMan>)>,
 ) {
@@ -28,7 +29,13 @@ pub fn check_if_potato_caught_by_potato_man(
         })
         .for_each(|entity| {
             commands.entity(entity).despawn();
-            println!("Potato caught and despawned!");
+
+            let sound = if rand::random() { "sounds/potato.ogg" } else { "sounds/harvest.ogg" };
+
+            commands.spawn(AudioBundle {
+                source: asset_server.load(sound),
+                ..default()
+            });
         });
 }
 
