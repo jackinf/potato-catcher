@@ -1,23 +1,31 @@
 package main
 
 import (
+    "log"
     "mime"
     "net/http"
     "path/filepath"
-    "log"
 )
 
 func main() {
-    // Set the MIME type for .wasm files
+    // Set MIME types for additional file types
     mime.AddExtensionType(".wasm", "application/wasm")
+    mime.AddExtensionType(".mp3", "audio/mpeg")
+    mime.AddExtensionType(".wav", "audio/wav")
 
-    // Set the directory where static files are located
+    // Serve files with the correct MIME type and handle CORS
     fs := http.FileServer(http.Dir("./static"))
-
-    // Serve files with the correct MIME type
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        if filepath.Ext(r.URL.Path) == ".wasm" {
-            w.Header().Set("Content-Type", "application/wasm")
+        w.Header().Set("Access-Control-Allow-Origin", "*")
+        if r.Method == http.MethodOptions {
+            w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+            w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+            w.WriteHeader(http.StatusOK)
+            return
+        }
+        ext := filepath.Ext(r.URL.Path)
+        if ext == ".wasm" || ext == ".mp3" || ext == ".wav" {
+            w.Header().Set("Content-Type", mime.TypeByExtension(ext))
         }
         fs.ServeHTTP(w, r)
     })
