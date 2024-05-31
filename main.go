@@ -12,6 +12,7 @@ func main() {
     mime.AddExtensionType(".wasm", "application/wasm")
     mime.AddExtensionType(".mp3", "audio/mpeg")
     mime.AddExtensionType(".wav", "audio/wav")
+    mime.AddExtensionType(".oog", "audio/oog")
 
     // Serve files with the correct MIME type and handle CORS
     fs := http.FileServer(http.Dir("./static"))
@@ -24,7 +25,7 @@ func main() {
             return
         }
         ext := filepath.Ext(r.URL.Path)
-        if ext == ".wasm" || ext == ".mp3" || ext == ".wav" {
+        if ext == ".wasm" || ext == ".mp3" || ext == ".wav" || ext == ".oog" {
             w.Header().Set("Content-Type", mime.TypeByExtension(ext))
         }
         fs.ServeHTTP(w, r)

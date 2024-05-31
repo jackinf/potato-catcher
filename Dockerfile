@@ -7,7 +7,7 @@ WORKDIR /app
 COPY go.mod .
 
 # Copy the static files and Go source code
-COPY assets ./assets
+COPY assets ./static
 COPY static ./static
 COPY main.go .
 

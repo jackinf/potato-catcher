@@ -12,8 +12,8 @@ use crate::systems::setup::setup;
 use crate::systems::spawn_potato::spawn_potato;
 use bevy::prelude::*;
 
-const POTATO_MAN_SPEED: f32 = 800.0;
-const POTATO_SPEED: f32 = 300.0;
+const POTATO_MAN_SPEED: f32 = 1000.0;
+const POTATO_SPEED: f32 = 500.0;
 
 fn main() {
     App::new()
