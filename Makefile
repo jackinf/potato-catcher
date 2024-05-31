@@ -27,8 +27,8 @@ bucket-setup:
 
 wasm-build:
 	cargo install wasm-bindgen-cli
-	cargo build --target $(WASM_TARGET)
-	wasm-bindgen target/$(WASM_TARGET)/debug/$(IMAGE_NAME).wasm --out-dir $(WASM_DIR) --web
+	cargo build --target $(WASM_TARGET) --release
+	wasm-bindgen target/$(WASM_TARGET)/release/$(IMAGE_NAME).wasm --out-dir $(WASM_DIR) --web
 
 wasm: wasm-build
 	gsutil cp $(WASM_DIR)/$(IMAGE_NAME)_bg.wasm $(BUCKET_NAME)

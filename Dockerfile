@@ -7,8 +7,8 @@ WORKDIR /app
 COPY go.mod .
 
 # Copy the static files and Go source code
-COPY assets ./static
 COPY static ./static
+COPY assets ./static/assets
 COPY main.go .
 
 # Build the Go app
