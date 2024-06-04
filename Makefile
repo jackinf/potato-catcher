@@ -29,6 +29,10 @@ wasm-build:
 	cargo install wasm-bindgen-cli
 	cargo build --target $(WASM_TARGET) --release
 	wasm-bindgen target/$(WASM_TARGET)/release/$(IMAGE_NAME).wasm --out-dir $(WASM_DIR) --web
+	rm static/$(IMAGE_NAME).js
+	rm static/$(IMAGE_NAME).d.ts
+	cp $(WASM_DIR)/$(IMAGE_NAME).js static/$(IMAGE_NAME).js
+	cp $(WASM_DIR)/$(IMAGE_NAME).d.ts static/$(IMAGE_NAME).d.ts
 
 wasm: wasm-build
 	gsutil cp $(WASM_DIR)/$(IMAGE_NAME)_bg.wasm $(BUCKET_NAME)
